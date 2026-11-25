@@ -50,6 +50,9 @@ def main():
 
     with open(path, "rb") as f:
         raw = f.read()
+    if raw.endswith(b"\n"):
+        print("trailing newline on disk", file=sys.stderr)
+        return 1
     on_disk = raw.decode("utf-8")
     if on_disk != LINE:
         print("round-trip mismatch", file=sys.stderr)
